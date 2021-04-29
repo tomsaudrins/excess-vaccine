@@ -1,6 +1,8 @@
 # Auto-Register for excess Vaccine in Copenhagen
 
 Small python script to speed-up the application process for the excess vaccine provided by the CPH region.
+Should be working even after website requests for more cookies, as it will select the minimum required every time.
+As this possibility was just anounced, I am not sure if the URL for the application itself changes, therefore it is retrieved every time.
 
 ## Installation
 
