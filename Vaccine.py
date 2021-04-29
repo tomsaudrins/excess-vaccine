@@ -10,7 +10,7 @@ class Register:
 
     Example usage:
         from Vaccine import Register
-        bot = Register("Jens L. Bech", "49", "Skolevej 14, 2", "1868 Frederiksberg C", "29291981", 5)
+        Register("Jens L. Bech", "49", "Skolevej 14, 2", "1868 Frederiksberg C", "29291981", 5)
     """    
     def __init__(self, name: str, age: str, address: str, zipcode: str, phone: str, center: int) -> None:
         self.name = name
@@ -30,7 +30,7 @@ class Register:
             driver.find_element_by_tag_name("input[type=text]").send_keys(inputText)
         driver.find_element_by_class_name("next-button").click()
         driver.find_elements_by_tag_name("label")[self.center].click()
-        for _ in range(2):
+        for _ in range(3):
             driver.find_element_by_class_name("next-button").click()
 
     def find_form(self, driver: webdriver) -> None:
