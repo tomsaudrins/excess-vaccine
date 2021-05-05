@@ -4,15 +4,23 @@ from selenium.webdriver.common.keys import Keys
 
 class Register:
     """
-    Automatically register for excess vaccines in Copenhagen.
-    Center selection is done by changing the center argument. 0-7.
-    Options are listed in the website.
-
-    Example usage:
+    Example use:
         from Vaccine import Register
-        Register("Jens L. Bech", "49", "Skolevej 14, 2", "1868 Frederiksberg C", "29291981", 5)
-    """    
-    def __init__(self, name: str, age: str, address: str, zipcode: str, phone: str, center: int) -> None:
+        Register(name = "Jens L. Bech", age = "49", address = "Skolevej 14, 2", zipcode = "1868 Frederiksberg C", phone = "29291981", center = "Øksnehallen, Halmtorvet 11, København V")
+
+    List of vaccination centers:
+
+    "Ballerup, Baltorpvej 18"
+    "Bella Center, Ørestad Boulevard/Martha Christensens Vej, København S"
+    "Bornholm, Ullasvej 39 C, Rønne"
+    "Hillerød, Østergade 8"
+    "Ishøj, Vejledalen 17"
+    "Øksnehallen, Halmtorvet 11, København V"
+    "Snekkerstenhallen, Agnetevej 1"
+    "Vaccinationscenter Birkerød, Søndervangen 44, 3460 Birkerød"
+    """
+
+    def __init__(self, name: str, age: str, address: str, zipcode: str, phone: str, center: str) -> None:
         self.name = name
         self.age = age
         self.address = address
@@ -24,19 +32,10 @@ class Register:
     def apply(self) -> None:
         driver = webdriver.Chrome('./chromedriver')
         driver.get("https://www.regionh.dk/presse-og-nyt/pressemeddelelser-og-nyheder/Sider/Tilmelding-til-at-modtage-overskydende-vaccine-mod-COVID-19.aspx")
-        self.find_form(driver)
         for inputText in [self.name, self.age, self.address, self.zipcode, self.phone]:
             driver.find_element_by_class_name("next-button").click()
             driver.find_element_by_tag_name("input[type=text]").send_keys(inputText)
         driver.find_element_by_class_name("next-button").click()
-        driver.find_elements_by_tag_name("label")[self.center].click()
+        driver.find_element_by_xpath(f"//*[text()[contains(., '{self.center}')]]").click()
         for _ in range(3):
             driver.find_element_by_class_name("next-button").click()
-
-    def find_form(self, driver: webdriver) -> None:
-        cookiesButton = driver.find_element_by_class_name("coi-banner__button")
-        if(cookiesButton):
-            cookiesButton.click()
-        driver.find_element_by_tag_name("summary").click()
-        driver.find_element_by_class_name("rh-Style-Btn").click()
-        driver.switch_to_window(driver.window_handles[1])
