@@ -15,5 +15,5 @@ Example:
 
 ```py
 from Vaccine import Register
-Register("Jens L. Bech", "49", "Skolevej 14, 2", "1868 Frederiksberg C", "29291981", 5)
+Register(name = "Jens L. Bech", age = "49", address = "Skolevej 14, 2", zipcode = "1868 Frederiksberg C", phone = "29291981", center = "Øksnehallen, Halmtorvet 11, København V")
 ```
